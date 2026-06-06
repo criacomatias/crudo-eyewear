@@ -15,53 +15,74 @@ function getWhatsAppLink(producto: Producto) {
 
 export default function Coleccion({ productos }: { productos: Producto[] }) {
   return (
-    <section className="bg-[#0A0A0A] px-12 py-28" id="coleccion">
-      <div className="flex justify-between items-end mb-16">
-        <h2 className="text-[#F5F0E8] font-light tracking-[0.06em] leading-[1.1] text-[clamp(28px,4vw,48px)]">
-          primera<br />coleccion.
-        </h2>
-        <div className="text-right text-[11px] tracking-[0.14em] opacity-45 leading-loose text-[#F5F0E8]">
-          linea basic - $65.000 ars<br />
-          linea premium - $120.000 ars<br />
-          buenos aires, 2025
+    <section id="coleccion" style={{ background: '#0A0A0A', padding: '80px 0' }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        padding: '0 48px',
+        marginBottom: '48px',
+        flexWrap: 'wrap',
+        gap: '16px',
+      }}>
+        <div>
+          <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.4, color: '#F5F0E8', marginBottom: '12px' }}>
+            primera coleccion
+          </p>
+          <h2 style={{ fontSize: '36px', fontWeight: 300, letterSpacing: '0.04em', lineHeight: 1.1, color: '#F5F0E8' }}>
+            los seis.
+          </h2>
+        </div>
+        <div style={{ textAlign: 'right', fontSize: '11px', letterSpacing: '0.12em', opacity: 0.4, lineHeight: 2, color: '#F5F0E8' }}>
+          <div>basic — $65.000 ars</div>
+          <div>premium — $120.000 ars</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-[2px]">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
         {productos.map((producto) => (
-          <a
+          
             key={producto.id}
             href={getWhatsAppLink(producto)}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative bg-[#111] aspect-[3/4] overflow-hidden flex flex-col justify-end"
+            style={{
+              position: 'relative',
+              background: '#0f0f0f',
+              aspectRatio: '3/4',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
           >
             {producto.imagen_url ? (
               <img
                 src={producto.imagen_url}
                 alt={producto.nombre}
-                className="absolute inset-0 w-full h-full object-cover"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  padding: '32px 24px 60px 24px',
+                }}
               />
             ) : (
-              <div className="absolute inset-0 bg-[#161616] flex items-center justify-center">
-                <span className="text-[10px] tracking-[0.18em] uppercase opacity-20 text-[#F5F0E8]">
-                  {producto.nombre}
-                </span>
+              <div style={{ position: 'absolute', inset: 0, background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.15, color: '#F5F0E8' }}>{producto.nombre}</span>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 to-transparent pointer-events-none" />
-            <div className="relative z-10 p-6 flex justify-between items-end">
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 55%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'relative', zIndex: 2, padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <div>
-                <div className="text-[#F5F0E8] text-[14px] font-light tracking-[0.12em]">
-                  {producto.nombre}.
-                </div>
-                <div className="text-[#F5F0E8] text-[9px] tracking-[0.2em] uppercase opacity-45 mt-1">
-                  {producto.linea}
-                </div>
+                <div style={{ fontSize: '14px', fontWeight: 300, letterSpacing: '0.1em', color: '#F5F0E8' }}>{producto.nombre}.</div>
+                <div style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.45, color: '#F5F0E8', marginTop: '4px' }}>{producto.linea}</div>
               </div>
-              <div className="text-[#F5F0E8] text-[12px] tracking-[0.1em] opacity-70">
-                ${formatPrecio(producto.precio)}
-              </div>
+              <div style={{ fontSize: '11px', letterSpacing: '0.08em', opacity: 0.65, color: '#F5F0E8' }}>${formatPrecio(producto.precio)}</div>
             </div>
           </a>
         ))}
