@@ -11,25 +11,25 @@ html {
 }
 
 body {
-  background: #0A0A0A;
-  color: #F5F0E8;
+  background: #F2F2F0;
+  color: #0A0A0A;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #3B1F0A;
-  color: #F5F0E8;
+  background: #0A0A0A;
+  color: #F2F2F0;
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #F2F2F0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3B1F0A;
+  background: rgba(10,10,10,0.3);
 }

@@ -15,74 +15,115 @@ function getWhatsAppLink(producto: Producto) {
 
 export default function Coleccion({ productos }: { productos: Producto[] }) {
   return (
-    <section id="coleccion" style={{ background: '#0A0A0A', padding: '80px 0' }}>
+    <section id="coleccion" style={{ background: '#F2F2F0', padding: '160px 48px' }}>
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
-        padding: '0 48px',
-        marginBottom: '48px',
-        flexWrap: 'wrap',
-        gap: '16px',
+        marginBottom: '96px',
       }}>
         <div>
-          <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.4, color: '#F5F0E8', marginBottom: '12px' }}>
+          <p style={{
+            fontSize: '10px',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            opacity: 0.3,
+            color: '#0A0A0A',
+            marginBottom: '20px',
+          }}>
             primera coleccion
           </p>
-          <h2 style={{ fontSize: '36px', fontWeight: 300, letterSpacing: '0.04em', lineHeight: 1.1, color: '#F5F0E8' }}>
+          <h2 style={{
+            fontSize: 'clamp(40px,5vw,72px)',
+            fontWeight: 300,
+            letterSpacing: '-0.01em',
+            lineHeight: 1,
+            color: '#0A0A0A',
+          }}>
             los seis.
           </h2>
         </div>
-        <div style={{ textAlign: 'right', fontSize: '11px', letterSpacing: '0.12em', opacity: 0.4, lineHeight: 2, color: '#F5F0E8' }}>
+        <div style={{
+          textAlign: 'right',
+          fontSize: '11px',
+          letterSpacing: '0.1em',
+          opacity: 0.3,
+          lineHeight: 2.4,
+          color: '#0A0A0A',
+        }}>
           <div>basic — $65.000 ars</div>
           <div>premium — $120.000 ars</div>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
         {productos.map((producto) => (
-          
+          <a
             key={producto.id}
             href={getWhatsAppLink(producto)}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              position: 'relative',
-              background: '#0f0f0f',
-              aspectRatio: '3/4',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              textDecoration: 'none',
-              cursor: 'pointer',
-            }}
+            style={{ textDecoration: 'none', display: 'block' }}
           >
-            {producto.imagen_url ? (
-              <img
-                src={producto.imagen_url}
-                alt={producto.nombre}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  padding: '32px 24px 60px 24px',
-                }}
-              />
-            ) : (
-              <div style={{ position: 'absolute', inset: 0, background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.15, color: '#F5F0E8' }}>{producto.nombre}</span>
+            <div style={{
+              aspectRatio: '3/4',
+              background: '#EAEAE8',
+              overflow: 'hidden',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              {producto.imagen_url ? (
+                <img
+                  src={producto.imagen_url}
+                  alt={producto.nombre}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    padding: '48px',
+                  }}
+                />
+              ) : (
+                <span style={{
+                  fontSize: '10px',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  opacity: 0.12,
+                  color: '#0A0A0A',
+                }}>
+                  {producto.nombre}
+                </span>
+              )}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <div style={{
+                fontSize: '13px',
+                fontWeight: 300,
+                letterSpacing: '0.06em',
+                color: '#0A0A0A',
+              }}>
+                {producto.nombre}.
               </div>
-            )}
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 55%)', pointerEvents: 'none' }} />
-            <div style={{ position: 'relative', zIndex: 2, padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <div>
-                <div style={{ fontSize: '14px', fontWeight: 300, letterSpacing: '0.1em', color: '#F5F0E8' }}>{producto.nombre}.</div>
-                <div style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.45, color: '#F5F0E8', marginTop: '4px' }}>{producto.linea}</div>
+              <div style={{
+                fontSize: '11px',
+                letterSpacing: '0.06em',
+                opacity: 0.4,
+                color: '#0A0A0A',
+              }}>
+                ${formatPrecio(producto.precio)}
               </div>
-              <div style={{ fontSize: '11px', letterSpacing: '0.08em', opacity: 0.65, color: '#F5F0E8' }}>${formatPrecio(producto.precio)}</div>
+            </div>
+            <div style={{
+              fontSize: '9px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              opacity: 0.25,
+              color: '#0A0A0A',
+              marginTop: '6px',
+            }}>
+              {producto.linea}
             </div>
           </a>
         ))}

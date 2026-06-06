@@ -5,7 +5,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -21,10 +21,10 @@ export default function Nav() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '24px 48px',
-        transition: 'background 0.4s ease',
-        background: scrolled ? 'rgba(10,10,10,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(245,240,232,0.06)' : 'none',
+        padding: '28px 48px',
+        transition: 'all 0.5s ease',
+        background: scrolled ? 'rgba(242,242,240,0.97)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(10,10,10,0.06)' : 'none',
       }}
     >
       <a href="/" style={{ textDecoration: 'none' }}>
@@ -37,9 +37,10 @@ export default function Nav() {
             fontSize: '10px',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color: '#F5F0E8',
+            color: scrolled ? '#0A0A0A' : '#F5F0E8',
             textDecoration: 'none',
             opacity: 0.6,
+            transition: 'color 0.5s ease',
           }}
         >
           coleccion
@@ -50,9 +51,10 @@ export default function Nav() {
             fontSize: '10px',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color: '#F5F0E8',
+            color: scrolled ? '#0A0A0A' : '#F5F0E8',
             textDecoration: 'none',
             opacity: 0.6,
+            transition: 'color 0.5s ease',
           }}
         >
           cristales
@@ -65,9 +67,10 @@ export default function Nav() {
             fontSize: '10px',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color: '#F5F0E8',
+            color: scrolled ? '#0A0A0A' : '#F5F0E8',
             textDecoration: 'none',
             opacity: 0.6,
+            transition: 'color 0.5s ease',
           }}
         >
           instagram
