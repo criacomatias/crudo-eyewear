@@ -10,22 +10,13 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: 'CRUDO — lentes con criterio.',
-  description: 'Seis armazones. Cuatro cristales. Una decisión. Buenos Aires — Primera Colección 2025.',
-  openGraph: {
-    title: 'CRUDO — lentes con criterio.',
-    description: 'Seis armazones. Cuatro cristales. Una decisión.',
-    siteName: 'CRUDO Eyewear',
-  },
+  description: 'Seis armazones. Cuatro cristales. Una decision. Buenos Aires — Primera Coleccion 2025.',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className={`${dmSans.className} bg-[#0A0A0A] text-[#F5F0E8]`}>
+      <body className={dmSans.className}>
         {children}
       </body>
     </html>

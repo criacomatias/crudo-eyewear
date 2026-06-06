@@ -8,6 +8,7 @@ import Cristales from './components/Cristales'
 import Editorial from './components/Editorial'
 import Lineas from './components/Lineas'
 import Cierre from './components/Cierre'
+import Nav from './components/Nav'
 
 export const revalidate = 3600
 
@@ -36,6 +37,7 @@ export default async function Home() {
 
   return (
     <main>
+      <Nav />
       <Hero />
       <Statement />
       <Coleccion productos={productos} />

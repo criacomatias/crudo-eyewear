@@ -23,7 +23,7 @@ export default function Hero() {
           className="w-[clamp(280px,40vw,600px)] mx-auto"
         />
         <p className="text-[#F5F0E8] text-[11px] tracking-[0.18em] uppercase opacity-40 mt-8">
-          Buenos Aires - Primera Coleccion 2026
+          Buenos Aires - Primera Coleccion 2025
         </p>
       </div>
 
