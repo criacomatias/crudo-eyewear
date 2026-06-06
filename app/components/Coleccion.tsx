@@ -20,7 +20,7 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
-        marginBottom: '96px',
+        marginBottom: '120px',
       }}>
         <div>
           <p style={{
@@ -56,7 +56,7 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '80px 64px' }}>
         {productos.map((producto) => (
           <a
             key={producto.id}
@@ -67,9 +67,8 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
           >
             <div style={{
               aspectRatio: '3/4',
-              background: '#EAEAE8',
               overflow: 'hidden',
-              marginBottom: '20px',
+              marginBottom: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -82,7 +81,6 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    padding: '48px',
                   }}
                 />
               ) : (
@@ -99,12 +97,12 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
               <div style={{
-                fontSize: '13px',
+                fontSize: '12px',
                 fontWeight: 300,
-                letterSpacing: '0.06em',
+                letterSpacing: '0.08em',
                 color: '#0A0A0A',
               }}>
-                {producto.nombre}.
+                {producto.nombre}
               </div>
               <div style={{
                 fontSize: '11px',
@@ -119,9 +117,9 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
               fontSize: '9px',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              opacity: 0.25,
+              opacity: 0.2,
               color: '#0A0A0A',
-              marginTop: '6px',
+              marginTop: '5px',
             }}>
               {producto.linea}
             </div>
