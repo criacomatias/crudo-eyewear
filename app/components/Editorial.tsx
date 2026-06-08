@@ -1,11 +1,15 @@
 export default function Editorial() {
   return (
-    <section style={{ background: '#F2F2F0', padding: '0 48px 160px' }}>
+    <section style={{
+      background: '#F2F2F0',
+      padding: '0 48px 160px',
+      borderTop: '1px solid rgba(10,10,10,0.06)',
+    }}>
       <div style={{
         display: 'grid',
         gridTemplateColumns: '2fr 1fr 1fr',
         gridTemplateRows: '1fr 1fr',
-        gap: '4px',
+        gap: '3px',
       }}>
         <div style={{
           gridRow: '1 / 3',

@@ -1,33 +1,49 @@
 export default function Concepto() {
   return (
-    <section style={{ background: '#F2F2F0', padding: '160px 48px' }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '120px',
-        alignItems: 'center',
-        maxWidth: '1400px',
-        margin: '0 auto',
-      }}>
+    <section style={{
+      background: '#F2F2F0',
+      padding: '160px 48px',
+      borderTop: '1px solid rgba(10,10,10,0.06)',
+    }}>
+      <div
+        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '120px',
+          alignItems: 'center',
+          maxWidth: '1400px',
+          margin: '0 auto',
+        }}
+      >
         <div>
-          <p style={{
-            fontSize: '10px',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            opacity: 0.3,
-            color: '#0A0A0A',
-            marginBottom: '56px',
-          }}>
-            concepto
-          </p>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px', marginBottom: '56px' }}>
+            <span style={{
+              fontSize: '10px',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              opacity: 0.15,
+              color: '#0A0A0A',
+            }}>02</span>
+            <p style={{
+              fontSize: '10px',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              opacity: 0.3,
+              color: '#0A0A0A',
+            }}>
+              concepto
+            </p>
+          </div>
           <p style={{
             color: '#0A0A0A',
             fontWeight: 300,
-            fontSize: 'clamp(20px,2.8vw,32px)',
-            lineHeight: 1.5,
-            marginBottom: '40px',
+            fontSize: 'clamp(20px,2.8vw,34px)',
+            lineHeight: 1.45,
+            marginBottom: '48px',
+            letterSpacing: '-0.01em',
           }}>
-            Lo no procesado.<br />El ojo antes del dano.
+            Lo no procesado.<br />El ojo antes del daño.
           </p>
           <p style={{
             color: '#0A0A0A',
@@ -46,13 +62,13 @@ export default function Concepto() {
             lineHeight: 1.85,
             opacity: 0.55,
           }}>
-            La tension de la marca: la ejecucion es refinada pero el concepto es crudo. Nada esta sobreexplicado.
+            La tensión de la marca: la ejecución es refinada pero el concepto es crudo. Nada está sobreexplicado.
           </p>
           <p style={{
             color: '#0A0A0A',
             fontSize: '11px',
-            letterSpacing: '0.1em',
-            opacity: 0.2,
+            letterSpacing: '0.12em',
+            opacity: 0.18,
             marginTop: '72px',
           }}>
             no todo combina. y se nota.
@@ -60,7 +76,7 @@ export default function Concepto() {
         </div>
         <div style={{
           aspectRatio: '3/4',
-          background: '#E6E6E4',
+          background: '#E4E4E2',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -69,7 +85,7 @@ export default function Concepto() {
             fontSize: '10px',
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
-            opacity: 0.15,
+            opacity: 0.12,
             color: '#0A0A0A',
           }}>
             foto editorial

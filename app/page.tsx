@@ -8,6 +8,7 @@ import Cristales from './components/Cristales'
 import Editorial from './components/Editorial'
 import Lineas from './components/Lineas'
 import Cierre from './components/Cierre'
+import ComoComprar from './components/ComoComprar'
 import Nav from './components/Nav'
 
 export const revalidate = 3600
@@ -41,6 +42,7 @@ export default async function Home() {
       <Hero />
       <Statement />
       <Coleccion productos={productos} />
+      <ComoComprar />
       <Concepto />
       <Cristales cristales={cristales} />
       <Editorial />

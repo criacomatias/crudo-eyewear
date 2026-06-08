@@ -23,8 +23,62 @@ export default function Hero() {
           className="w-[clamp(280px,40vw,600px)] mx-auto"
         />
         <p className="text-[#F5F0E8] text-[11px] tracking-[0.18em] uppercase opacity-40 mt-8">
-          Buenos Aires - Coleccion 2026
+          Lo que usás dice lo que no decís.
         </p>
+        <a
+          href="#coleccion"
+          className="hero-cta"
+          style={{
+            display: 'inline-block',
+            marginTop: '40px',
+            fontSize: '10px',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#F5F0E8',
+            textDecoration: 'none',
+            border: '1px solid rgba(245,240,232,0.28)',
+            padding: '14px 40px',
+          }}
+        >
+          explorar colección
+        </a>
+      </div>
+
+      {/* Scroll indicator */}
+      <div style={{
+        position: 'absolute',
+        bottom: '28px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+      }}>
+        <span style={{
+          fontSize: '7px',
+          letterSpacing: '0.3em',
+          textTransform: 'uppercase',
+          color: '#F5F0E8',
+          opacity: 0.25,
+        }}>scroll</span>
+        <div style={{
+          width: '1px',
+          height: '44px',
+          background: 'rgba(245,240,232,0.15)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          <div className="scroll-dot" style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(to bottom, transparent, rgba(245,240,232,0.75), transparent)',
+          }} />
+        </div>
       </div>
 
     </section>
