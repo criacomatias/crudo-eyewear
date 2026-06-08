@@ -10,11 +10,9 @@ export default function Statement() {
         maxWidth: '1000px',
         margin: '0 auto',
       }}>
-        Seis armazones.{' '}
+        Lo que usás dice{' '}
         <br />
-        Cuatro cristales.{' '}
-        <br />
-        <span style={{ opacity: 0.2 }}>Una decision.</span>
+        lo que no decís.
       </p>
     </section>
   )
