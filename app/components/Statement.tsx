@@ -19,9 +19,7 @@ export default function Statement() {
           margin: '0 auto',
         }}
       >
-        Lo que usás dice{' '}
-        <br />
-        lo que no decís.
+        Lo que usás dice<br />lo que no decís.
       </p>
       <div style={{
         width: '1px',

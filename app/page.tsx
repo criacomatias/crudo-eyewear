@@ -42,12 +42,12 @@ export default async function Home() {
       <Hero />
       <Statement />
       <Coleccion productos={productos} />
-      <ComoComprar />
       <Concepto />
       <Cristales cristales={cristales} />
-      <Editorial />
       <Lineas productos={productos} />
+      <Editorial />
       <Cierre />
+      <ComoComprar />
     </main>
   )
 }

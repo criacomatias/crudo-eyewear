@@ -76,20 +76,17 @@ export default function Concepto() {
         </div>
         <div style={{
           aspectRatio: '3/4',
-          background: '#E4E4E2',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          overflow: 'hidden',
         }}>
-          <span style={{
-            fontSize: '10px',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            opacity: 0.12,
-            color: '#0A0A0A',
-          }}>
-            foto editorial
-          </span>
+          <img
+            src="/concepto-editorial.jpg"
+            alt="Concepto editorial"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
         </div>
       </div>
     </section>
