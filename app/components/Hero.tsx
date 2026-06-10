@@ -4,15 +4,21 @@ export default function Hero() {
   return (
     <section className="relative w-full h-screen min-h-[600px] overflow-hidden flex items-end justify-center">
 
-      <div className="absolute inset-0 bg-[#0A0A0A]">
-        <video
-          src="/crudo-hero.mp4"
-          className="absolute inset-0 w-full h-full border-none pointer-events-none object-cover"
-          style={{ transform: 'scale(1.15)' }}
-          autoPlay
-          muted
-          loop
-          playsInline
+      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        <iframe
+          src="https://www.youtube.com/embed/zMaEeV2Nf1c?autoplay=1&mute=1&loop=1&playlist=zMaEeV2Nf1c&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) scale(1.5)',
+            width: '100%',
+            height: '100%',
+            border: 'none',
+            pointerEvents: 'none'
+          }}
+          allow="autoplay; muted"
+          frameBorder="0"
         />
       </div>
 
