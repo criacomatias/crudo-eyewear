@@ -4,14 +4,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  cursor: none;
+  
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
+body { cursor: default;
   background: #F2F2F0;
   color: #0A0A0A;
   -webkit-font-smoothing: antialiased;

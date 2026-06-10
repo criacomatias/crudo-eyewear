@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
 import './globals.css'
-import Cursor from './components/Cursor'
 import FloatingCTA from './components/FloatingCTA'
+import Carrito from './components/Carrito'
+import { CarritoProvider } from './context/CarritoContext'
+import ScrollReveal from './components/ScrollReveal'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -11,19 +13,20 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'CRUDO — lentes con criterio.',
-  description: 'Lo que usás dice lo que no decís. Buenos Aires — Coleccion 2026.',
+  title: 'CRUDO',
+  description: 'Buenos Aires 2026.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <body className={dmSans.className}>
-        <div className="cursor" id="cursor" />
-        <div className="cursor-follower" id="cursor-follower" />
-        <Cursor />
-        <FloatingCTA />
-        {children}
+        <CarritoProvider>
+          <FloatingCTA />
+          <Carrito />
+          {children}
+          <ScrollReveal />
+        </CarritoProvider>
       </body>
     </html>
   )
