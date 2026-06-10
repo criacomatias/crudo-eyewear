@@ -9,7 +9,7 @@ export default function Lineas({ productos }: { productos: Producto[] }) {
   return (
     <section style={{
       background: '#F2F2F0',
-      padding: '160px 48px',
+      padding: '100px 48px',
       borderTop: '1px solid rgba(10,10,10,0.06)',
     }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px', marginBottom: '120px' }}>

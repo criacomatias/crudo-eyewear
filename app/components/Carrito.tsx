@@ -11,69 +11,115 @@ function formatPrecio(precio: number) {
 export default function Carrito() {
   const { items, totalPrecio, isOpen, cerrarCarrito, eliminarItem, vaciarCarrito } = useCarrito()
 
-  const mensaje = items
-    .map((item, index) => `${index + 1}. ${item.nombre} / ${item.cristal} - $${formatPrecio(item.precio)}`)
-    .join('\n')
-
   const handleConfirmarPedido = () => {
     if (items.length === 0) return
-    const total = formatPrecio(totalPrecio)
-    const texto = `Hola, quiero hacer el siguiente pedido:\n${mensaje}\nTotal: $${total} ARS`
+    const mensaje = items
+      .map((item, i) => `${i + 1}. ${item.nombre} / ${item.cristal} - $${formatPrecio(item.precio)}`)
+      .join('\n')
+    const texto = `Hola, quiero hacer el siguiente pedido:\n${mensaje}\nTotal: $${formatPrecio(totalPrecio)} ARS`
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`, '_blank')
   }
 
   return (
     <>
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/30 transition-opacity ${isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
         onClick={cerrarCarrito}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 40,
+          background: 'rgba(0,0,0,0.3)',
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transition: 'opacity 0.4s ease',
+        }}
       />
-      <aside
-        className={`fixed right-0 top-0 h-full w-full max-w-md bg-[#F2F2F0] p-8 shadow-2xl transition-transform duration-500 z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        <div className="flex items-center justify-between gap-4 border-b border-black/10 pb-4">
+
+      {/* Panel */}
+      <aside style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        height: '100vh',
+        width: '100%',
+        maxWidth: '440px',
+        background: '#F2F2F0',
+        zIndex: 50,
+        transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)',
+        display: 'flex',
+        flexDirection: 'column',
+        boxShadow: '-8px 0 40px rgba(0,0,0,0.12)',
+      }}>
+        {/* Header */}
+        <div style={{
+          padding: '32px 32px 24px',
+          borderBottom: '1px solid rgba(10,10,10,0.08)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}>
           <div>
-            <p className="text-[10px] tracking-[0.24em] uppercase text-[#0A0A0A]/50">Tu carrito</p>
-            <p className="text-xl font-semibold text-[#0A0A0A]">{items.length} producto{items.length === 1 ? '' : 's'}</p>
+            <p style={{ fontSize: '9px', letterSpacing: '0.24em', textTransform: 'uppercase', opacity: 0.4, color: '#0A0A0A', marginBottom: '8px' }}>
+              Tu carrito
+            </p>
+            <p style={{ fontSize: '20px', fontWeight: 600, color: '#0A0A0A' }}>
+              {items.length} producto{items.length === 1 ? '' : 's'}
+            </p>
           </div>
           <button
             type="button"
             onClick={cerrarCarrito}
-            className="text-[22px] font-semibold leading-none text-[#0A0A0A] hover:text-[#3B1F0A]"
+            style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: '#0A0A0A', lineHeight: 1, padding: '4px' }}
           >
             ×
           </button>
         </div>
 
-        <div className="mt-8 space-y-6">
+        {/* Items */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px 32px' }}>
           {items.length === 0 ? (
-            <div className="rounded-3xl border border-[#0A0A0A]/10 bg-white/70 p-8 text-center text-sm text-[#0A0A0A]/70">
+            <div style={{ padding: '40px 24px', textAlign: 'center', fontSize: '13px', opacity: 0.5, color: '#0A0A0A', border: '1px solid rgba(10,10,10,0.1)', borderRadius: '20px' }}>
               Tu carrito está vacío.
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} className="rounded-[28px] border border-[#0A0A0A]/10 bg-white/80 p-5">
-                <div className="flex items-start justify-between gap-4">
+              <div key={item.id} style={{
+                padding: '20px',
+                border: '1px solid rgba(10,10,10,0.1)',
+                borderRadius: '20px',
+                marginBottom: '16px',
+                background: 'rgba(255,255,255,0.6)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
-                    <p className="text-xs tracking-[0.22em] uppercase text-[#0A0A0A]/50">{item.cristal}</p>
-                    <p className="mt-3 text-sm font-semibold uppercase text-[#0A0A0A]">{item.nombre}</p>
+                    <p style={{ fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.4, color: '#0A0A0A', marginBottom: '8px' }}>
+                      {item.cristal}
+                    </p>
+                    <p style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', color: '#0A0A0A', letterSpacing: '0.08em' }}>
+                      {item.nombre}
+                    </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => eliminarItem(item.id)}
-                    className="text-lg font-semibold text-[#0A0A0A]/60 hover:text-[#0A0A0A]"
+                    style={{ background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer', opacity: 0.4, color: '#0A0A0A' }}
                   >
                     ×
                   </button>
                 </div>
-                <p className="mt-4 text-sm font-medium text-[#0A0A0A]">$ {formatPrecio(item.precio)}</p>
+                <p style={{ fontSize: '13px', marginTop: '16px', color: '#0A0A0A' }}>
+                  $ {formatPrecio(item.precio)}
+                </p>
               </div>
             ))
           )}
         </div>
 
-        <div className="mt-10 rounded-[32px] border border-[#0A0A0A]/10 bg-white/80 p-6">
-          <div className="flex items-center justify-between text-sm uppercase tracking-[0.22em] text-[#0A0A0A]/60">
+        {/* Footer */}
+        <div style={{ padding: '24px 32px 40px', borderTop: '1px solid rgba(10,10,10,0.08)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.5, color: '#0A0A0A', marginBottom: '20px' }}>
             <span>Total</span>
             <span>$ {formatPrecio(totalPrecio)}</span>
           </div>
@@ -81,7 +127,20 @@ export default function Carrito() {
             type="button"
             disabled={items.length === 0}
             onClick={handleConfirmarPedido}
-            className="mt-6 w-full rounded-full bg-[#0A0A0A] px-5 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-[#F2F2F0] transition-colors duration-200 disabled:cursor-not-allowed disabled:bg-[#0A0A0A]/40"
+            style={{
+              width: '100%',
+              padding: '18px',
+              background: items.length === 0 ? 'rgba(10,10,10,0.3)' : '#0A0A0A',
+              color: '#F2F2F0',
+              border: 'none',
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              cursor: items.length === 0 ? 'not-allowed' : 'pointer',
+              borderRadius: '100px',
+              marginBottom: '12px',
+            }}
           >
             confirmar pedido
           </button>
@@ -89,7 +148,19 @@ export default function Carrito() {
             <button
               type="button"
               onClick={vaciarCarrito}
-              className="mt-4 w-full rounded-full border border-[#0A0A0A]/15 bg-transparent px-5 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-[#0A0A0A]"
+              style={{
+                width: '100%',
+                padding: '18px',
+                background: 'transparent',
+                color: '#0A0A0A',
+                border: '1px solid rgba(10,10,10,0.15)',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                borderRadius: '100px',
+              }}
             >
               vaciar carrito
             </button>

@@ -15,7 +15,7 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
   return (
     <section id="coleccion" style={{
       background: '#F2F2F0',
-      padding: '160px 48px',
+      padding: '100px 48px',
       borderTop: '1px solid rgba(10,10,10,0.06)',
     }}>
       <div
