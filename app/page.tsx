@@ -1,7 +1,7 @@
 import { supabase } from './lib/supabase'
 import type { Producto, Cristal } from './lib/supabase'
 import Hero from './components/Hero'
-import Statement from './components/Statement'
+
 import Coleccion from './components/Coleccion'
 import Concepto from './components/Concepto'
 import Cristales from './components/Cristales'
@@ -40,7 +40,7 @@ export default async function Home() {
     <main>
       <Nav />
       <Hero />
-      <Statement />
+
       <Coleccion productos={productos} />
       <Concepto />
       <Cristales cristales={cristales} />
