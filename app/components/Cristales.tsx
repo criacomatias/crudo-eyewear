@@ -4,7 +4,7 @@ export default function Cristales({ cristales }: { cristales: Cristal[] }) {
   return (
     <section id="cristales" style={{
       background: '#F2F2F0',
-      padding: '160px 48px',
+      padding: '100px 48px',
       borderTop: '1px solid rgba(10,10,10,0.06)',
     }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px', marginBottom: '40px' }}>
