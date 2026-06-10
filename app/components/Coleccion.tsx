@@ -70,8 +70,7 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
       </div>
 
       <div
-        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700"
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '80px 48px' }}
+        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700 grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-16"
       >
         {productos.map((producto) => (
           <Link
@@ -80,23 +79,31 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
             style={{ textDecoration: 'none', display: 'block' }}
           >
             <div className="product-card" style={{ cursor: 'pointer' }}>
+            <div className="product-card-image-wrapper" style={{
+              position: 'relative',
+              aspectRatio: '3/4',
+              overflow: 'hidden',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <img
+                src={getProductoImagePath(producto.slug)}
+                alt={producto.nombre}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', transition: 'transform 400ms ease' }}
+              />
               <div style={{
-                aspectRatio: '3/4',
-                overflow: 'hidden',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <img
-                  src={getProductoImagePath(producto.slug)}
-                  alt={producto.nombre}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                <div style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.12em', color: '#0A0A0A', textTransform: 'uppercase' }}>
-                  {producto.nombre?.toUpperCase()}
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(10,10,10,0)',
+                transition: 'background 400ms ease',
+                pointerEvents: 'none',
+              }} className="product-overlay" />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <div className="product-name" style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.12em', color: '#0A0A0A', textTransform: 'uppercase', transition: 'transform 300ms ease' }}>
+                {producto.nombre?.toUpperCase()}
                 </div>
                 <div style={{ fontSize: '13px', fontWeight: 400, letterSpacing: '0.04em', color: '#0A0A0A' }}>
                   ${formatPrecio(producto.precio)}

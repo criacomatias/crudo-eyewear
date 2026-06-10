@@ -5,12 +5,14 @@ export default function Hero() {
     <section className="relative w-full h-screen min-h-[600px] overflow-hidden flex items-end justify-center">
 
       <div className="absolute inset-0 bg-[#0A0A0A]">
-        <iframe
-          src="https://www.youtube.com/embed/zMaEeV2Nf1c?autoplay=1&mute=1&loop=1&playlist=zMaEeV2Nf1c&controls=0&showinfo=0&rel=0&modestbranding=1"
-          className="absolute inset-0 w-full h-full border-none pointer-events-none"
+        <video
+          src="/crudo-hero.mp4"
+          className="absolute inset-0 w-full h-full border-none pointer-events-none object-cover"
           style={{ transform: 'scale(1.15)' }}
-          allow="autoplay; encrypted-media"
-          allowFullScreen={true}
+          autoPlay
+          muted
+          loop
+          playsInline
         />
       </div>
 

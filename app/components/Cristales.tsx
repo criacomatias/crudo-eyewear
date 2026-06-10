@@ -40,7 +40,14 @@ export default function Cristales({ cristales }: { cristales: Cristal[] }) {
       </h2>
       <div
         className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700"
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '64px' }}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '64px',
+          '@media (min-width: 768px)': {
+            gridTemplateColumns: 'repeat(4, 1fr)',
+          },
+        } as any}
       >
         {cristales.map((cristal) => (
           <div key={cristal.id} className="cristal-card">

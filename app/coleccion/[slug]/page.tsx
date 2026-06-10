@@ -161,6 +161,7 @@ export default function ProductoPage() {
                   <button
                     key={cristal.id}
                     onClick={() => setCristalSeleccionado(cristal)}
+                    className="cristal-btn"
                     style={{
                       padding: '14px 20px',
                       border: cristalSeleccionado.id === cristal.id ? '2px solid #0A0A0A' : '1px solid rgba(10,10,10,0.15)',
@@ -171,8 +172,10 @@ export default function ProductoPage() {
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
                       cursor: 'pointer',
-                      transition: 'all 0.2s ease',
+                      transition: 'all 250ms cubic-bezier(0.34, 1.56, 0.64, 1)',
                       outline: 'none',
+                      position: 'relative',
+                      overflow: 'hidden',
                     }}
                   >
                     {cristal.nombre}
@@ -184,6 +187,7 @@ export default function ProductoPage() {
             {/* Botón CTA */}
             <button
               onClick={handleWhatsApp}
+              className="cta-btn-product"
               style={{
                 width: '100%',
                 padding: '18px 24px',
@@ -195,17 +199,17 @@ export default function ProductoPage() {
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease',
+                transition: 'all 200ms ease',
                 outline: 'none',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#333333'
+                e.currentTarget.style.transform = 'translateX(3px)'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#0A0A0A'
+                e.currentTarget.style.transform = 'translateX(0)'
               }}
             >
-              Quiero este
+              Quiero este →
             </button>
           </div>
         </div>

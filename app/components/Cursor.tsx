@@ -2,6 +2,10 @@
 import { useEffect } from 'react'
 
 export default function Cursor() {
+  if (typeof window !== 'undefined' && 'ontouchstart' in window) {
+    return null
+  }
+
   useEffect(() => {
     const cursor = document.getElementById('cursor')
     const follower = document.getElementById('cursor-follower')

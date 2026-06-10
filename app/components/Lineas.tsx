@@ -31,8 +31,8 @@ export default function Lineas({ productos }: { productos: Producto[] }) {
         </p>
       </div>
       <div
-        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700"
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}
+        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700 grid grid-cols-1 md:grid-cols-2 gap-20"
+        style={{ maxWidth: '1400px', margin: '0 auto' }}
       >
         {[
           { label: 'Basic', price: '$65.000', items: basic },

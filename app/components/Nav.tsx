@@ -40,13 +40,13 @@ export default function Nav() {
         <img src="/crudo_logo.svg" alt="crudo." style={{ height: '28px', width: 'auto' }} />
       </a>
       <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-        <a href="#coleccion" className="nav-link" style={linkStyle}>coleccion</a>
-        <a href="#cristales" className="nav-link" style={linkStyle}>cristales</a>
+        <a href="#coleccion" className="nav-link nav-underline" style={linkStyle}>coleccion</a>
+        <a href="#cristales" className="nav-link nav-underline" style={linkStyle}>cristales</a>
         <a
           href="https://instagram.com/crudolentes"
           target="_blank"
           rel="noopener noreferrer"
-          className="nav-link"
+          className="nav-link nav-underline"
           style={linkStyle}
         >
           instagram
