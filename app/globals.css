@@ -248,3 +248,16 @@ body::after {
   #coleccion > div:last-child { grid-template-columns: repeat(2, 1fr) !important; }
   #cristales > div:last-child { grid-template-columns: repeat(2, 1fr) !important; }
 }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px !important; }
+  section { padding-left: 24px !important; padding-right: 24px !important; }
+  #coleccion > div:last-child { grid-template-columns: repeat(2, 1fr) !important; }
+  #cristales > div:last-child { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 768px) {
+  .concepto-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .concepto-grid > div:last-child { aspect-ratio: 4/3 !important; order: -1; }
+}

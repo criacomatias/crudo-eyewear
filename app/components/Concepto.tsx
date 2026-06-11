@@ -6,7 +6,7 @@ export default function Concepto() {
       borderTop: '1px solid rgba(10,10,10,0.06)',
     }}>
       <div
-        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700"
+        className="scroll-reveal opacity-0 translate-y-8 transition-all duration-700 concepto-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
