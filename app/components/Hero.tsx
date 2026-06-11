@@ -42,7 +42,7 @@ export default function Hero() {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, transparent 40%, rgba(10,10,10,0.7) 100%)', zIndex: 2 }} />
 
       <div style={{ position: 'absolute', bottom: '80px', right: '60px', textAlign: 'right', zIndex: 10 }}>
-        <img src="/crudo_logo.svg" alt="crudo." style={{ height: '48px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
+
         <p style={{ color: '#F5F0E8', fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.5, marginTop: '16px' }}>
           Lo que usas dice lo que no decis.
         </p>

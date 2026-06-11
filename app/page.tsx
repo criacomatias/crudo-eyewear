@@ -5,7 +5,7 @@ import Hero from './components/Hero'
 import Coleccion from './components/Coleccion'
 import Concepto from './components/Concepto'
 import Cristales from './components/Cristales'
-import Editorial from './components/Editorial'
+
 import Lineas from './components/Lineas'
 import Cierre from './components/Cierre'
 import TestPersonalidad from './components/TestPersonalidad'
@@ -46,7 +46,7 @@ export default async function Home() {
       <Concepto />
       <Cristales cristales={cristales} />
       <Lineas productos={productos} />
-      <Editorial />
+
       <TestPersonalidad />
       <Cierre />
       <ComoComprar />
