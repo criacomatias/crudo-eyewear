@@ -81,7 +81,7 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
             <div className="product-card" style={{ cursor: 'pointer' }}>
             <div className="product-card-image-wrapper" style={{
               position: 'relative',
-              aspectRatio: '3/4',
+              aspectRatio: '1/1',
               overflow: 'hidden',
               marginBottom: '20px',
               display: 'flex',

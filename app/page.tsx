@@ -8,6 +8,7 @@ import Cristales from './components/Cristales'
 import Editorial from './components/Editorial'
 import Lineas from './components/Lineas'
 import Cierre from './components/Cierre'
+import TestPersonalidad from './components/TestPersonalidad'
 import ComoComprar from './components/ComoComprar'
 import Nav from './components/Nav'
 
@@ -46,6 +47,7 @@ export default async function Home() {
       <Cristales cristales={cristales} />
       <Lineas productos={productos} />
       <Editorial />
+      <TestPersonalidad />
       <Cierre />
       <ComoComprar />
     </main>

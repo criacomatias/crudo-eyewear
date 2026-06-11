@@ -1,0 +1,220 @@
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+
+const preguntas = [
+  {
+    id: 1,
+    texto: "Cuando algo te molesta, ¿qué hacés?",
+    opciones: [
+      { texto: "Lo guardás y seguís", armazon: "calma" },
+      { texto: "Lo decís de frente", armazon: "rabia" },
+      { texto: "Esperás el momento justo", armazon: "celos" },
+      { texto: "Lo usás a tu favor", armazon: "orgullo" },
+    ]
+  },
+  {
+    id: 2,
+    texto: "¿Cómo elegís lo que usás?",
+    opciones: [
+      { texto: "Lo que te hace sentir cómodo", armazon: "calma" },
+      { texto: "Lo que nadie más tiene", armazon: "orgullo" },
+      { texto: "Lo que dice algo sin hablar", armazon: "deseo" },
+      { texto: "Lo que refleja cómo estás hoy", armazon: "amor" },
+    ]
+  },
+  {
+    id: 3,
+    texto: "¿Qué buscás en una persona?",
+    opciones: [
+      { texto: "Que te deje espacio", armazon: "calma" },
+      { texto: "Que te desafíe", armazon: "rabia" },
+      { texto: "Que te sorprenda", armazon: "deseo" },
+      { texto: "Que sea consistente", armazon: "amor" },
+    ]
+  },
+  {
+    id: 4,
+    texto: "Un sábado a las 10pm, ¿dónde estás?",
+    opciones: [
+      { texto: "En casa, tranquilo", armazon: "calma" },
+      { texto: "En algún lugar que no planeaste", armazon: "rabia" },
+      { texto: "Con alguien específico", armazon: "amor" },
+      { texto: "Donde todos quieren estar", armazon: "orgullo" },
+    ]
+  },
+]
+
+const resultados: Record<string, { precio: string; linea: string; descripcion: string }> = {
+  calma: { precio: "$65.000", linea: "BASIC", descripcion: "Sabés exactamente quién sos. No necesitás demostrarlo." },
+  rabia: { precio: "$120.000", linea: "PREMIUM", descripcion: "No pedís permiso. Lo que usás lo confirma." },
+  deseo: { precio: "$65.000", linea: "BASIC", descripcion: "Hay algo en vos que atrae sin que lo busques." },
+  celos: { precio: "$65.000", linea: "BASIC", descripcion: "Observás todo. Nada se te escapa." },
+  orgullo: { precio: "$120.000", linea: "PREMIUM", descripcion: "Entrás a un lugar y se nota. Sin esfuerzo." },
+  amor: { precio: "$120.000", linea: "PREMIUM", descripcion: "Todo lo que hacés tiene intensidad. Es inevitable." },
+}
+
+export default function TestPersonalidad() {
+  const [paso, setPaso] = useState<'intro' | number | 'resultado'>('intro')
+  const [puntajes, setPuntajes] = useState<Record<string, number>>({})
+  const [resultado, setResultado] = useState<string | null>(null)
+
+  const handleRespuesta = (armazon: string) => {
+    const nuevos = { ...puntajes, [armazon]: (puntajes[armazon] || 0) + 1 }
+    setPuntajes(nuevos)
+
+    const siguientePaso = (paso as number) + 1
+    if (siguientePaso > preguntas.length) {
+      const ganador = Object.entries(nuevos).sort((a, b) => b[1] - a[1])[0][0]
+      setResultado(ganador)
+      setPaso('resultado')
+    } else {
+      setPaso(siguientePaso)
+    }
+  }
+
+  const reiniciar = () => {
+    setPaso('intro')
+    setPuntajes({})
+    setResultado(null)
+  }
+
+  const preguntaActual = typeof paso === 'number' ? preguntas[paso - 1] : null
+
+  return (
+    <section style={{
+      background: '#F2F2F0',
+      padding: '100px 48px',
+      borderTop: '1px solid rgba(245,240,232,0.06)',
+    }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+
+        {paso === 'intro' && (
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.3, color: '#3B1F0A', marginBottom: '32px' }}>
+              test
+            </p>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 64px)', fontWeight: 300, color: '#3B1F0A', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: '24px' }}>
+              ¿Qué armazón<br />sos vos?
+            </h2>
+            <p style={{ fontSize: '15px', color: '#3B1F0A', opacity: 0.4, marginBottom: '64px', lineHeight: 1.7 }}>
+              4 preguntas. Sin respuestas correctas.
+            </p>
+            <button
+              onClick={() => setPaso(1)}
+              style={{
+                background: 'transparent',
+                border: '1px solid rgba(59,31,10,0.35)',
+                color: '#3B1F0A',
+                padding: '16px 48px',
+                fontSize: '10px',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              empezar
+            </button>
+          </div>
+        )}
+
+        {preguntaActual && (
+          <div>
+            <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.2, color: '#3B1F0A', marginBottom: '48px' }}>
+              {paso} / {preguntas.length}
+            </p>
+            <h3 style={{ fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, color: '#3B1F0A', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '64px' }}>
+              {preguntaActual.texto}
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              {preguntaActual.opciones.map((opcion, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleRespuesta(opcion.armazon)}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid rgba(59,31,10,0.2)',
+                    color: '#3B1F0A',
+                    padding: '24px 20px',
+                    fontSize: '13px',
+                    fontWeight: 300,
+                    lineHeight: 1.5,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s ease, background 0.2s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'rgba(245,240,232,0.6)'
+                    e.currentTarget.style.background = 'rgba(245,240,232,0.04)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(245,240,232,0.15)'
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                >
+                  {opcion.texto}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {paso === 'resultado' && resultado && (
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.3, color: '#3B1F0A', marginBottom: '32px' }}>
+              tu armazón es
+            </p>
+            <h2 style={{ fontSize: 'clamp(48px, 10vw, 120px)', fontWeight: 800, color: '#3B1F0A', letterSpacing: '-0.02em', lineHeight: 1, marginBottom: '32px', textTransform: 'uppercase' }}>
+              {resultado.toUpperCase()}
+            </h2>
+            <img
+              src={`/${resultado}.png`}
+              alt={resultado}
+              style={{ width: '100%', maxWidth: '400px', margin: '0 auto 40px', display: 'block', objectFit: 'contain' }}
+            />
+            <p style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.3, color: '#3B1F0A', marginBottom: '8px' }}>
+              {resultados[resultado].linea} — {resultados[resultado].precio} ARS
+            </p>
+            <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 300, color: '#3B1F0A', opacity: 0.7, lineHeight: 1.7, marginBottom: '48px', maxWidth: '480px', margin: '16px auto 48px' }}>
+              {resultados[resultado].descripcion}
+            </p>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link
+                href={`/coleccion/${resultado}`}
+                style={{
+                  background: '#F2F2F0',
+                  color: '#0A0A0A',
+                  padding: '16px 40px',
+                  fontSize: '10px',
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                ver {resultado.toUpperCase()}
+              </Link>
+              <button
+                onClick={reiniciar}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(59,31,10,0.35)',
+                  color: '#3B1F0A',
+                  padding: '16px 40px',
+                  fontSize: '10px',
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                }}
+              >
+                repetir
+              </button>
+            </div>
+          </div>
+        )}
+
+      </div>
+    </section>
+  )
+}
