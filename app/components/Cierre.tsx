@@ -66,7 +66,7 @@ export default function Cierre() {
             href={'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Hola, quiero conocer la coleccion CRUDO 2026.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block text-[10px] tracking-[0.22em] uppercase text-[#F5F0E8] no-underline border border-[#F5F0E8]/25 px-10 py-[14px] hover:border-[#F5F0E8]/60 hover:bg-[#F5F0E8]/5 transition-all duration-400"
+            style={{ display: 'inline-block', fontSize: '10px', letterSpacing: '0.28em', textTransform: 'uppercase', color: '#F5F0E8', textDecoration: 'none', padding: '18px 56px', border: '1px solid rgba(245,240,232,0.2)' }}
           >
             ver coleccion
           </a>
