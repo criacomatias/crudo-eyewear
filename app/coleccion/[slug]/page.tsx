@@ -68,9 +68,9 @@ export default function ProductoPage() {
       <section style={{ padding: '160px 48px 120px' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '60% 40%',
-          gap: '80px',
-          maxWidth: '1600px',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '60px',
+          maxWidth: '1200px',
           margin: '0 auto',
           alignItems: 'start',
         }}>
