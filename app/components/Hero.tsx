@@ -11,7 +11,7 @@ const slides = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
-
+const [bannerVisible, setBannerVisible] = useState(true)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length)
@@ -38,7 +38,12 @@ export default function Hero() {
           )}
         </div>
       ))}
-
+{bannerVisible && (
+  <div style={{ position: 'absolute', top: '90px', left: '48px', zIndex: 20, backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', background: 'rgba(242,242,240,0.55)', border: '1px solid rgba(10,10,10,0.08)', borderRadius: '100px', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: '0 4px 24px rgba(10,10,10,0.06)' }}>
+    <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#0A0A0A', whiteSpace: 'nowrap' }}>Envíos gratis en compras mayores a $100.000</span>
+    <button onClick={() => setBannerVisible(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', color: '#0A0A0A', opacity: 0.4, lineHeight: 1, padding: 0 }}>×</button>
+  </div>
+)}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, transparent 40%, rgba(10,10,10,0.7) 100%)', zIndex: 2 }} />
 
       <div style={{ position: 'absolute', bottom: '80px', right: '60px', textAlign: 'right', zIndex: 10 }}>
