@@ -36,7 +36,7 @@ export default function FloatingCTA() {
         transition: 'opacity 0.4s ease, transform 0.4s ease, background 0.2s ease',
       }}
     >
-      comprar →
+      consultar →
     </a>
   )
 }
