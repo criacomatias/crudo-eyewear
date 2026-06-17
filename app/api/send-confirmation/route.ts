@@ -1,50 +1,47 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { supabase } from '@/app/lib/supabase'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-interface OrderItem {
-  nombre: string
-  cristal: string
-  precio: number
-}
-
 export async function POST(request: Request) {
   try {
-    const { email, items, total } = await request.json()
+    const { email, items, total, paymentId } = await request.json()
 
-    if (!email || !Array.isArray(items) || items.length === 0 || typeof total !== 'number') {
-      return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 })
+    try {
+      await supabase.from('pedidos').insert({
+        email_cliente: email,
+        items,
+        total,
+        payment_id: paymentId || null,
+      })
+    } catch (dbError) {
+      console.error('Error guardando pedido:', dbError)
     }
 
-    const itemsHtml = (items as OrderItem[])
-      .map((item) => `<li>${item.nombre} — ${item.cristal} — $${item.precio.toLocaleString('es-AR')}</li>`)
+    const itemsHtml = items
+      .map((item: any) => `<li>${item.nombre} - ${item.cristal} - $${item.precio.toLocaleString('es-AR')}</li>`)
       .join('')
 
-    const { error } = await resend.emails.send({
-      from: 'CRUDO <onboarding@resend.dev>', // ⚠️ pendiente: definir dominio propio o SendGrid antes del 20
+    await resend.emails.send({
+      from: 'CRUDO <onboarding@resend.dev>',
       to: email,
-      subject: 'Tu pedido CRUDO está confirmado',
+      subject: 'Tu pedido CRUDO esta confirmado',
       html: `
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
-          <h1 style="font-size: 24px; font-weight: 300;">Tu pedido está confirmado.</h1>
+          <h1 style="font-size: 24px; font-weight: 300;">Tu pedido esta confirmado.</h1>
           <p>Gracias por tu compra. Esto es lo que pediste:</p>
           <ul>${itemsHtml}</ul>
           <p style="font-weight: 700;">Total: $${total.toLocaleString('es-AR')} ARS</p>
           <p>Te vamos a contactar por WhatsApp para coordinar la entrega.</p>
-          <p style="opacity: 0.5; font-size: 12px; margin-top: 32px;">CRUDO — Buenos Aires, Argentina</p>
+          <p style="opacity: 0.5; font-size: 12px; margin-top: 32px;">CRUDO - Buenos Aires, Argentina</p>
         </div>
       `,
     })
 
-    if (error) {
-      console.error('Resend error:', error)
-      return NextResponse.json({ error: 'Error enviando email' }, { status: 502 })
-    }
-
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('send-confirmation error:', error)
+    console.error('Resend error:', error)
     return NextResponse.json({ error: 'Error enviando email' }, { status: 500 })
   }
 }
