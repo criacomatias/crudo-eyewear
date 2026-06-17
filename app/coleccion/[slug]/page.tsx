@@ -9,10 +9,10 @@ import { useCarrito } from '@/app/context/CarritoContext'
 import type { Producto } from '@/app/lib/supabase'
 
 const cristalOptions = [
-  { id: '1', nombre: 'Azul 420nm' },
-  { id: '2', nombre: 'Amarillo' },
-  { id: '3', nombre: 'Rojo' },
-  { id: '4', nombre: 'Fotocromático' },
+  { id: '1', nombre: 'Azul 420nm', extra: 0 },
+  { id: '2', nombre: 'Amarillo', extra: 0 },
+  { id: '3', nombre: 'Rojo', extra: 0 },
+  { id: '4', nombre: 'Fotocromático', extra: 45000 },
 ]
 
 function formatPrecio(precio: number) {
@@ -47,13 +47,15 @@ export default function ProductoPage() {
     fetchProducto()
   }, [slug])
 
+  const precioFinal = producto ? producto.precio + cristalSeleccionado.extra : 0
+
   const handleAgregarCarrito = () => {
     if (!producto) return
     agregarItem({
       id: `${producto.id}-${cristalSeleccionado.id}-${Date.now()}`,
       nombre: producto.nombre,
       cristal: cristalSeleccionado.nombre,
-      precio: producto.precio,
+      precio: precioFinal,
       slug: producto.slug,
     })
     abrirCarrito()
@@ -87,16 +89,12 @@ export default function ProductoPage() {
               ← COLECCIÓN
             </Link>
 
-            <p style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.3, color: '#0A0A0A', marginTop: '32px' }}>
-              {producto.linea === 'basic' ? 'BASIC' : 'PREMIUM'}
-            </p>
-
-            <h1 style={{ fontSize: 'clamp(2.5rem,6vw,4rem)', fontWeight: 800, color: '#0A0A0A', margin: '16px 0 24px', textTransform: 'uppercase', lineHeight: 1.05 }}>
+            <h1 style={{ fontSize: 'clamp(2.5rem,6vw,4rem)', fontWeight: 800, color: '#0A0A0A', margin: '32px 0 24px', textTransform: 'uppercase', lineHeight: 1.05 }}>
               {producto.nombre}
             </h1>
 
             <p style={{ fontSize: '18px', color: '#0A0A0A', marginBottom: '32px' }}>
-              ${formatPrecio(producto.precio)} ARS
+              ${formatPrecio(precioFinal)} ARS
             </p>
 
             <p style={{ fontSize: '15px', lineHeight: 1.85, opacity: 0.6, color: '#0A0A0A', marginBottom: '48px', maxWidth: '420px' }}>
@@ -125,6 +123,11 @@ export default function ProductoPage() {
                   }}
                 >
                   {cristal.nombre}
+                  {cristal.extra > 0 && (
+                    <span style={{ display: 'block', fontSize: '9px', opacity: 0.6, marginTop: '4px', fontWeight: 400 }}>
+                      +${formatPrecio(cristal.extra)}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -144,7 +147,7 @@ export default function ProductoPage() {
                 cursor: 'pointer',
               }}
             >
-              AGREGAR AL CARRITO
+              AGREGAR AL CARRITO — ${formatPrecio(precioFinal)}
             </button>
           </div>
         </div>
