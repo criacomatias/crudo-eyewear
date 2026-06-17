@@ -64,8 +64,8 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
           lineHeight: 2.4,
           color: '#0A0A0A',
         }}>
-          <div>basic — $65.000 ars</div>
-          <div>premium — $120.000 ars</div>
+          <div>armazon - $75.000 ars</div>
+          <div>fotocromatico - $120.000 ars</div>
         </div>
       </div>
 
@@ -108,16 +108,6 @@ export default function Coleccion({ productos }: { productos: Producto[] }) {
                 <div style={{ fontSize: '13px', fontWeight: 400, letterSpacing: '0.04em', color: '#0A0A0A' }}>
                   ${formatPrecio(producto.precio)}
                 </div>
-              </div>
-              <div style={{
-                fontSize: '9px',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                opacity: 0.2,
-                color: '#0A0A0A',
-                marginTop: '6px',
-              }}>
-                {producto.linea}
               </div>
               <div style={{
                 fontSize: '9px',
