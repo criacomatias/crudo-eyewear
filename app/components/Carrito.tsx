@@ -7,22 +7,41 @@ function formatPrecio(precio: number) {
   return precio.toLocaleString('es-AR')
 }
 
+const PROVINCIAS_VALIDAS = ['CABA', 'Buenos Aires']
+
 export default function Carrito() {
   const { items, totalPrecio, isOpen, cerrarCarrito, eliminarItem, vaciarCarrito } = useCarrito()
   const [loading, setLoading] = useState(false)
+  const [direccion, setDireccion] = useState('')
+  const [codigoPostal, setCodigoPostal] = useState('')
+  const [provincia, setProvincia] = useState('')
+
+  const envioValido =
+    direccion.trim().length > 4 &&
+    codigoPostal.trim().length >= 4 &&
+    PROVINCIAS_VALIDAS.includes(provincia)
 
   const handleConfirmarPedido = async () => {
-    if (items.length === 0) return
+    if (items.length === 0 || !envioValido) return
     setLoading(true)
     try {
+      const envio = {
+        direccion: direccion.trim(),
+        codigoPostal: codigoPostal.trim(),
+        provincia,
+      }
+      localStorage.setItem('crudo_envio', JSON.stringify(envio))
+
       const res = await fetch('/api/create-preference', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, envio }),
       })
       const data = await res.json()
       if (data.init_point) {
         window.location.href = data.init_point
+      } else {
+        console.error('Error creando preferencia:', data.error)
       }
     } catch (error) {
       console.error('Error:', error)
@@ -66,18 +85,66 @@ export default function Carrito() {
               Tu carrito está vacío.
             </div>
           ) : (
-            items.map((item) => (
-              <div key={item.id} style={{ padding: '20px', border: '1px solid rgba(10,10,10,0.1)', borderRadius: '20px', marginBottom: '16px', background: 'rgba(255,255,255,0.6)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div>
-                    <p style={{ fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.4, color: '#0A0A0A', marginBottom: '8px' }}>{item.cristal}</p>
-                    <p style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', color: '#0A0A0A', letterSpacing: '0.08em' }}>{item.nombre}</p>
+            <>
+              {items.map((item) => (
+                <div key={item.id} style={{ padding: '20px', border: '1px solid rgba(10,10,10,0.1)', borderRadius: '20px', marginBottom: '16px', background: 'rgba(255,255,255,0.6)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <p style={{ fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase', opacity: 0.4, color: '#0A0A0A', marginBottom: '8px' }}>{item.cristal}</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', color: '#0A0A0A', letterSpacing: '0.08em' }}>{item.nombre}</p>
+                    </div>
+                    <button type="button" onClick={() => eliminarItem(item.id)} style={{ background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer', opacity: 0.4, color: '#0A0A0A' }}>×</button>
                   </div>
-                  <button type="button" onClick={() => eliminarItem(item.id)} style={{ background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer', opacity: 0.4, color: '#0A0A0A' }}>×</button>
+                  <p style={{ fontSize: '13px', marginTop: '16px', color: '#0A0A0A' }}>$ {formatPrecio(item.precio)}</p>
                 </div>
-                <p style={{ fontSize: '13px', marginTop: '16px', color: '#0A0A0A' }}>$ {formatPrecio(item.precio)}</p>
-              </div>
-            ))
+              ))}
+
+              <p style={{ fontSize: '9px', letterSpacing: '0.24em', textTransform: 'uppercase', opacity: 0.4, color: '#0A0A0A', margin: '32px 0 16px' }}>
+                Datos de envío
+              </p>
+
+              <select
+                value={provincia}
+                onChange={(e) => setProvincia(e.target.value)}
+                style={{
+                  width: '100%', padding: '14px 16px', marginBottom: '12px',
+                  border: '1px solid rgba(10,10,10,0.15)', background: 'white',
+                  fontSize: '13px', color: '#0A0A0A', borderRadius: '12px',
+                }}
+              >
+                <option value="">Provincia</option>
+                <option value="CABA">CABA</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+              </select>
+
+              <input
+                type="text"
+                value={codigoPostal}
+                onChange={(e) => setCodigoPostal(e.target.value)}
+                placeholder="Código postal"
+                style={{
+                  width: '100%', padding: '14px 16px', marginBottom: '12px',
+                  border: '1px solid rgba(10,10,10,0.15)', background: 'white',
+                  fontSize: '13px', color: '#0A0A0A', borderRadius: '12px',
+                }}
+              />
+
+              <input
+                type="text"
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+                placeholder="Dirección (calle, número, localidad)"
+                style={{
+                  width: '100%', padding: '14px 16px', marginBottom: '8px',
+                  border: '1px solid rgba(10,10,10,0.15)', background: 'white',
+                  fontSize: '13px', color: '#0A0A0A', borderRadius: '12px',
+                }}
+              />
+
+              <p style={{ fontSize: '11px', opacity: 0.45, color: '#0A0A0A', marginBottom: '8px' }}>
+                Por ahora enviamos solo a CABA y Provincia de Buenos Aires.
+              </p>
+            </>
           )}
         </div>
 
@@ -88,15 +155,15 @@ export default function Carrito() {
           </div>
           <button
             type="button"
-            disabled={items.length === 0 || loading}
+            disabled={items.length === 0 || loading || !envioValido}
             onClick={handleConfirmarPedido}
             style={{
               width: '100%', padding: '18px',
-              background: items.length === 0 ? 'rgba(10,10,10,0.3)' : '#0A0A0A',
+              background: (items.length === 0 || !envioValido) ? 'rgba(10,10,10,0.3)' : '#0A0A0A',
               color: '#F2F2F0', border: 'none',
               fontSize: '11px', fontWeight: 700,
               letterSpacing: '0.22em', textTransform: 'uppercase',
-              cursor: items.length === 0 ? 'not-allowed' : 'pointer',
+              cursor: (items.length === 0 || !envioValido) ? 'not-allowed' : 'pointer',
               borderRadius: '100px', marginBottom: '12px',
             }}
           >

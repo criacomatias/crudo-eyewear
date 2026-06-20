@@ -38,11 +38,18 @@ export default async function PedidosPage() {
             <p style={{ fontSize: '13px', color: '#0A0A0A', marginBottom: '8px' }}>
               {pedido.email_cliente || 'Sin email'}
             </p>
-            <div style={{ fontSize: '12px', opacity: 0.7, color: '#0A0A0A' }}>
+            <div style={{ fontSize: '12px', opacity: 0.7, color: '#0A0A0A', marginBottom: '12px' }}>
               {Array.isArray(pedido.items) && pedido.items.map((item: any, i: number) => (
                 <div key={i}>{item.nombre} - {item.cristal} - ${formatPrecio(item.precio)}</div>
               ))}
             </div>
+            {(pedido.direccion_envio || pedido.provincia || pedido.codigo_postal) && (
+              <div style={{ fontSize: '12px', color: '#0A0A0A', paddingTop: '12px', borderTop: '1px solid rgba(10,10,10,0.08)' }}>
+                <p style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.4, marginBottom: '4px' }}>Envío</p>
+                <p>{pedido.direccion_envio || 'Sin dirección'}</p>
+                <p style={{ opacity: 0.6 }}>{pedido.provincia || ''} {pedido.codigo_postal ? `— CP ${pedido.codigo_postal}` : ''}</p>
+              </div>
+            )}
           </div>
         ))}
       </div>

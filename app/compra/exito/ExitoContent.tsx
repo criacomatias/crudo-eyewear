@@ -21,13 +21,17 @@ export default function ExitoContent() {
         const items = carritoStr ? JSON.parse(carritoStr) : []
         const total = items.reduce((sum: number, item: any) => sum + item.precio, 0)
 
+        const envioStr = localStorage.getItem('crudo_envio')
+        const envio = envioStr ? JSON.parse(envioStr) : null
+
         await fetch('/api/send-confirmation', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: infoData.email, items, total }),
+          body: JSON.stringify({ email: infoData.email, items, total, paymentId, envio }),
         })
 
         localStorage.removeItem('crudo_carrito')
+        localStorage.removeItem('crudo_envio')
         setEnviado(true)
       } catch (error) {
         console.error('Error enviando confirmacion:', error)

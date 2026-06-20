@@ -1,7 +1,21 @@
 import { NextResponse } from 'next/server'
+import { rateLimit, getClientIp } from '@/app/lib/rateLimit'
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request)
+    const { ok, retryAfter } = rateLimit(`admin-login:${ip}`, {
+      limit: 5,
+      windowMs: 5 * 60 * 1000,
+    })
+
+    if (!ok) {
+      return NextResponse.json(
+        { error: 'Demasiados intentos. Probá de nuevo en unos minutos.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+      )
+    }
+
     const { password } = await request.json()
     if (password === process.env.ADMIN_PASSWORD) {
       const response = NextResponse.json({ success: true })

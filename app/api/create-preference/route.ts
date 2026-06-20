@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { MercadoPagoConfig, Preference } from 'mercadopago'
 import { createClient } from '@supabase/supabase-js'
+import { rateLimit, getClientIp } from '@/app/lib/rateLimit'
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN!,
@@ -16,12 +17,47 @@ interface CartItem {
   cristal: string
 }
 
+interface Envio {
+  direccion: string
+  codigoPostal: string
+  provincia: string
+}
+
+const PROVINCIAS_VALIDAS = ['CABA', 'Buenos Aires']
+
 export async function POST(request: Request) {
   try {
-    const { items } = await request.json()
+    const ip = getClientIp(request)
+    const { ok, retryAfter } = rateLimit(`create-preference:${ip}`, {
+      limit: 20,
+      windowMs: 60 * 1000,
+    })
+
+    if (!ok) {
+      return NextResponse.json(
+        { error: 'Demasiados intentos. Esperá un momento.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+      )
+    }
+
+    const { items, envio } = (await request.json()) as { items: CartItem[]; envio: Envio }
 
     if (!Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'Carrito vacío' }, { status: 400 })
+    }
+
+    if (
+      !envio ||
+      typeof envio.direccion !== 'string' ||
+      envio.direccion.trim().length < 5 ||
+      typeof envio.codigoPostal !== 'string' ||
+      envio.codigoPostal.trim().length < 4 ||
+      !PROVINCIAS_VALIDAS.includes(envio.provincia)
+    ) {
+      return NextResponse.json(
+        { error: 'Datos de envío inválidos. Por ahora enviamos solo a CABA y Provincia de Buenos Aires.' },
+        { status: 400 }
+      )
     }
 
     const resolvedItems = await Promise.all(
@@ -67,6 +103,11 @@ export async function POST(request: Request) {
           pending: `${process.env.NEXT_PUBLIC_SITE_URL}/compra/pendiente`,
         },
         auto_return: 'approved',
+        metadata: {
+          direccion_envio: envio.direccion.trim(),
+          codigo_postal: envio.codigoPostal.trim(),
+          provincia: envio.provincia,
+        },
       },
     })
 
